@@ -5,29 +5,32 @@ import axios from "axios";
 import { Send, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface Message {
+  sender: "user" | "bot";
+  text: string;
+}
+
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<
-    { sender: "user" | "bot"; text: string }[]
-  >([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { sender: "user", text: input };
+    const userMessage: Message = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
 
     try {
       const res = await axios.post("/api/v1/chatbot", { message: input });
-      const botMessage = { sender: "bot", text: res.data.reply };
+      const botMessage: Message = { sender: "bot", text: res.data.reply };
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error(err);
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Oops, something went wrong!" },
+        { sender: "bot", text: "Oops, something went wrong!" } as Message,
       ]);
     }
   };
