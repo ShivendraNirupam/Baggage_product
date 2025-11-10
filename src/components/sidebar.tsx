@@ -22,7 +22,7 @@ export default function Sidebar({ className }: SidebarProps) {
 
   return (
     <div
-      className={`${className} bg-blue-100/10 backdrop-blur-3xl absolute sm:relative sm:h-full w-[90%] sm:w-auto flex border-2 border-black rounded-2xl sm:flex-row px-6 py-2 gap-6 sm:gap-10 justify-center items-center sm:mr-8`}
+      className={`${className} bg-blue-100/10 backdrop-blur-3xl sm:relative sm:h-full w-[90%] sm:w-auto flex border-2 border-black rounded-2xl sm:flex-row px-6 py-2 gap-6 sm:gap-10 justify-center items-center sm:mr-8`}
     >
       {links.map((link) => {
         const isActive = pathname === link.href;
